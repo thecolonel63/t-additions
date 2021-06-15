@@ -19,9 +19,13 @@ public class tmodifycommand {
                 .then(ClientCommandManager.literal("add")
                         .then(ClientCommandManager.argument("nbt", greedyString())
                                 .executes(context -> {
-                                            String nbt = context.getArgument("nbt", String.class);
-                                            ItemStack stack = MC.player.getMainHandStack();
-                                            addNbt(nbt, stack);
+                                            if (MC.player.getAbilities().creativeMode) {
+                                                String nbt = context.getArgument("nbt", String.class);
+                                                ItemStack stack = MC.player.getMainHandStack();
+                                                addNbt(nbt, stack);
+                                            } else {
+                                                MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                                            }
                                             return 0;
                                         }
                                 )
@@ -30,9 +34,14 @@ public class tmodifycommand {
                 .then(ClientCommandManager.literal("set")
                         .then(ClientCommandManager.argument("nbt", greedyString())
                                 .executes(context -> {
-                                            String nbt = context.getArgument("nbt", String.class);
-                                            ItemStack stack = MC.player.getMainHandStack();
-                                            setNbt(nbt, stack);
+                                            if (MC.player.getAbilities().creativeMode) {
+                                                String nbt = context.getArgument("nbt", String.class);
+                                                ItemStack stack = MC.player.getMainHandStack();
+                                                setNbt(nbt, stack);
+                                            } else {
+                                                MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+
+                                            }
                                             return 0;
                                         }
                                 )
@@ -41,9 +50,14 @@ public class tmodifycommand {
                 .then(ClientCommandManager.literal("remove")
                         .then(ClientCommandManager.argument("nbt", greedyString())
                                 .executes(context -> {
-                                            String nbt = context.getArgument("nbt", String.class);
-                                            ItemStack stack = MC.player.getMainHandStack();
-                                            removeNbt(nbt, stack);
+                                            if (MC.player.getAbilities().creativeMode) {
+                                                String nbt = context.getArgument("nbt", String.class);
+                                                ItemStack stack = MC.player.getMainHandStack();
+                                                removeNbt(nbt, stack);
+                                            } else {
+                                                MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+
+                                            }
                                             return 0;
                                         }
                                 )

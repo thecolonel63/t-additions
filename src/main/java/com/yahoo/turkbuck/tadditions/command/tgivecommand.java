@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TranslatableText;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
@@ -18,24 +19,32 @@ public class tgivecommand {
         ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("tgive")
                 .then(ClientCommandManager.argument("item", itemStack())
                         .executes(context -> {
-                            ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
-                            MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(36 + MC.player.getInventory().selectedSlot, stack));
-                            MC.player.sendMessage(new TranslatableText("tadditions.give.success"), false);
-                            MC.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((MC.player.getRandom().nextFloat() - MC.player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                            if (MC.player.getAbilities().creativeMode) {
+                                ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
+                                MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(36 + MC.player.getInventory().selectedSlot, stack));
+                                MC.player.sendMessage(new TranslatableText("tadditions.give.success"), false);
+                                MC.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((MC.player.getRandom().nextFloat() - MC.player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                            } else {
+                                MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                            }
                             return 0;
                         })
                         .then(ClientCommandManager.argument("count", integer())
                                 .executes(context -> {
-                                    Integer count = context.getArgument("count", Integer.class);
-                                    ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(count, false);
-                                    if(stack.getCount() > 64) {
-                                        MC.player.sendMessage(new TranslatableText("tadditions.count_above_max"), false);
-                                    } else if (stack.getCount() < 1) {
-                                        MC.player.sendMessage(new TranslatableText("tadditions.count_below_min"), false);
+                                    if (MC.player.getAbilities().creativeMode) {
+                                        Integer count = context.getArgument("count", Integer.class);
+                                        ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(count, false);
+                                        if (stack.getCount() > 64) {
+                                            MC.player.sendMessage(new TranslatableText("tadditions.count_above_max"), false);
+                                        } else if (stack.getCount() < 1) {
+                                            MC.player.sendMessage(new TranslatableText("tadditions.count_below_min"), false);
+                                        } else {
+                                            MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(36 + MC.player.getInventory().selectedSlot, stack));
+                                            MC.player.sendMessage(new TranslatableText("tadditions.give.success"), false);
+                                            MC.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((MC.player.getRandom().nextFloat() - MC.player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                        }
                                     } else {
-                                        MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(36 + MC.player.getInventory().selectedSlot, stack));
-                                        MC.player.sendMessage(new TranslatableText("tadditions.give.success"), false);
-                                        MC.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((MC.player.getRandom().nextFloat() - MC.player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                        MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
                                     }
                                     return 0;
                                 })

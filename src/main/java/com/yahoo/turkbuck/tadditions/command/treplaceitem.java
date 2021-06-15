@@ -5,7 +5,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
@@ -757,13 +756,17 @@ public class treplaceitem {
 
     private static void replaceItem(Integer slot, ItemStack stack) {
         MinecraftClient MC = MinecraftClient.getInstance();
-        if(stack.getCount() > 64) {
-            MC.player.sendMessage(new TranslatableText("tadditions.count_above_max"), false);
-        } else if (stack.getCount() < 1) {
-            MC.player.sendMessage(new TranslatableText("tadditions.count_below_min"), false);
+        if (MC.player.getAbilities().creativeMode) {
+            if (stack.getCount() > 64) {
+                MC.player.sendMessage(new TranslatableText("tadditions.count_above_max"), false);
+            } else if (stack.getCount() < 1) {
+                MC.player.sendMessage(new TranslatableText("tadditions.count_below_min"), false);
+            } else {
+                MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(slot, stack));
+                MC.player.sendMessage(new TranslatableText("tadditions.replaceitem.success"), false);
+            }
         } else {
-            MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(slot, stack));
-            MC.player.sendMessage(new TranslatableText("tadditions.replaceitem.success"), false);
+            MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
         }
     }
 }
