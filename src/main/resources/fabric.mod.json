@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "tadditions",
+  "version": "${version}",
+
+  "name": "thecolonel63 additions",
+  "description": "A few commands like /tgive, /treplaceitem, and /tmodify.",
+  "authors": [
+    "thecolonel63"
+  ],
+  "contact": {
+    "sources": "https://github.com/thecolonel63/t-additions"
+  },
+
+  "license": "MIT",
+  "icon": "assets/tadditions/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.yahoo.turkbuck.tadditions.TAdditions"
+    ]
+  },
+  "mixins": [
+    "tadditions.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "tadditions.give.success": "[T-additions] Item created.",
+  "tadditions.modify.success": "[T-additions] Item modified.",
+  "tadditions.modify.nbt.invalid": "[T-additions] Invalid NBT.",
+  "tadditions.modify.nbt.path.invalid": "[T-additions] Invalid NBT path.",
+  "tadditions.replaceitem.success": "[T-additions] Slot replaced.",
+  "tadditions.count_above_max": "[T-additions] Count cannot be greater than 64.",
+  "tadditions.count_below_min": "[T-additions] Count cannot be less than 1."
+}
