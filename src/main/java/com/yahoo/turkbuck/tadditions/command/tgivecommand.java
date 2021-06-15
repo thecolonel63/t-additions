@@ -21,6 +21,7 @@ public class tgivecommand {
                             ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                             MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(36 + MC.player.getInventory().selectedSlot, stack));
                             MC.player.sendMessage(new TranslatableText("tadditions.give.success"), false);
+                            MC.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((MC.player.getRandom().nextFloat() - MC.player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                             return 0;
                         })
                         .then(ClientCommandManager.argument("count", integer())
@@ -34,6 +35,7 @@ public class tgivecommand {
                                     } else {
                                         MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(36 + MC.player.getInventory().selectedSlot, stack));
                                         MC.player.sendMessage(new TranslatableText("tadditions.give.success"), false);
+                                        MC.player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((MC.player.getRandom().nextFloat() - MC.player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                                     }
                                     return 0;
                                 })
