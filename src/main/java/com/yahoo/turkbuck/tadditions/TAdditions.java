@@ -17,7 +17,6 @@ public class TAdditions implements ModInitializer {
 
     public static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
         CommandManager.clearClientSideCommands();
-        tspectpcommand.register(dispatcher);
         tgivecommand.register(dispatcher);
         tmodifycommand.register(dispatcher);
         treplaceitemcommand.register(dispatcher);
