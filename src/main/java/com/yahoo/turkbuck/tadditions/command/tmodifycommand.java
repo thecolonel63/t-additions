@@ -1,68 +1,61 @@
 package com.yahoo.turkbuck.tadditions.command;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
+import static com.yahoo.turkbuck.tadditions.command.helpers.CommandManager.addClientSideCommand;
+import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.server.command.CommandManager.literal;
 
 public class tmodifycommand {
 
-    public static void register() {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         MinecraftClient MC = MinecraftClient.getInstance();
-
-        ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("tmodify")
-                .then(ClientCommandManager.literal("add")
-                        .then(ClientCommandManager.argument("nbt", greedyString())
+        addClientSideCommand("tmodify");
+        dispatcher.register(literal("tmodify")
+                .then(literal("add")
+                        .then(argument("nbt", greedyString())
                                 .executes(context -> {
-                                            if (MC.player.getAbilities().creativeMode) {
-                                                String nbt = context.getArgument("nbt", String.class);
-                                                ItemStack stack = MC.player.getMainHandStack();
-                                                addNbt(nbt, stack);
-                                            } else {
-                                                MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
-                                            }
-                                            return 0;
-                                        }
-                                )
-                        )
-                )
-                .then(ClientCommandManager.literal("set")
-                        .then(ClientCommandManager.argument("nbt", greedyString())
+                                    if (MC.player.getAbilities().creativeMode) {
+                                        String nbt = context.getArgument("nbt", String.class);
+                                        ItemStack stack = MC.player.getMainHandStack();
+                                        addNbt(nbt, stack);
+                                    } else {
+                                        MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                                    }
+                                    return 0;
+                                })))
+                .then(literal("set")
+                        .then(argument("nbt", greedyString())
                                 .executes(context -> {
-                                            if (MC.player.getAbilities().creativeMode) {
-                                                String nbt = context.getArgument("nbt", String.class);
-                                                ItemStack stack = MC.player.getMainHandStack();
-                                                setNbt(nbt, stack);
-                                            } else {
-                                                MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
-
-                                            }
-                                            return 0;
-                                        }
-                                )
-                        )
-                )
-                .then(ClientCommandManager.literal("remove")
-                        .then(ClientCommandManager.argument("nbt", greedyString())
+                                    if (MC.player.getAbilities().creativeMode) {
+                                        String nbt = context.getArgument("nbt", String.class);
+                                        ItemStack stack = MC.player.getMainHandStack();
+                                        setNbt(nbt, stack);
+                                    } else {
+                                        MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                                    }
+                                    return 0;
+                                })))
+                .then(literal("remove")
+                        .then(argument("nbt", greedyString())
                                 .executes(context -> {
-                                            if (MC.player.getAbilities().creativeMode) {
-                                                String nbt = context.getArgument("nbt", String.class);
-                                                ItemStack stack = MC.player.getMainHandStack();
-                                                removeNbt(nbt, stack);
-                                            } else {
-                                                MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
-
-                                            }
-                                            return 0;
-                                        }
-                                )
-                        )
-                )
+                                    if (MC.player.getAbilities().creativeMode) {
+                                        String nbt = context.getArgument("nbt", String.class);
+                                        ItemStack stack = MC.player.getMainHandStack();
+                                        removeNbt(nbt, stack);
+                                    } else {
+                                        MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                                    }
+                                    return 0;
+                                })))
         );
     }
 
@@ -70,10 +63,10 @@ public class tmodifycommand {
 
         MinecraftClient MC = MinecraftClient.getInstance();
 
-        if (!stack.hasTag()) stack.setTag(new NbtCompound());
+        if (!stack.hasNbt()) stack.setNbt(new NbtCompound());
         try {
             NbtCompound tag = StringNbtReader.parse(nbt);
-            stack.getTag().copyFrom(tag);
+            stack.getNbt().copyFrom(tag);
             MC.player.sendMessage(new TranslatableText("tadditions.modify.success"), false);
         } catch (CommandSyntaxException e) {
             MC.player.sendMessage(new TranslatableText("tadditions.modify.nbt.invalid"), false);
@@ -85,7 +78,7 @@ public class tmodifycommand {
         MinecraftClient MC = MinecraftClient.getInstance();
         try {
             NbtCompound tag = StringNbtReader.parse(nbt);
-            stack.setTag(tag);
+            stack.setNbt(tag);
             MC.player.sendMessage(new TranslatableText("tadditions.modify.success"), false);
         } catch (CommandSyntaxException e) {
             MC.player.sendMessage(new TranslatableText("tadditions.modify.nbt.invalid"), false);
@@ -97,9 +90,7 @@ public class tmodifycommand {
 
         MinecraftClient MC = MinecraftClient.getInstance();
 
-        NbtPath path = parseNbtPath(stack.getTag(), nbt);
-
-        System.out.println(path);
+        NbtPath path = parseNbtPath(stack.getNbt(), nbt);
 
         if (path == null) {
             MC.player.sendMessage(new TranslatableText("tadditions.modify.nbt.path.invalid"), false);
@@ -112,8 +103,6 @@ public class tmodifycommand {
 
     private static NbtPath parseNbtPath(NbtCompound tag, String path) {
         String[] parts = path.split("\\.");
-
-        System.out.println(parts[parts.length - 1]);
 
         NbtCompound base = tag;
         if (base == null) return null;

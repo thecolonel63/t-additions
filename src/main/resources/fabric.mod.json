@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "thecolonel63 additions",
-  "description": "A few commands like /tgive, /treplaceitem, and /tmodify.",
+  "description": "A few commands like /tgive, /treplaceitem, and /tmodify. \nHuge thanks to Earthcomputer's clientcommands for a working client side command manager!",
   "authors": [
     "thecolonel63"
   ],
