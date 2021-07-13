@@ -10,10 +10,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChatScreen.class)
 public class ChatScreenMixin {
-	@Shadow protected TextFieldWidget chatField;
+    @Shadow
+    protected TextFieldWidget chatField;
 
-	@Inject(at = @At("TAIL"), method = "init()V")
-	private void init(CallbackInfo info) {
-		chatField.setMaxLength(Integer.MAX_VALUE);
-	}
+    @Inject(at = @At("TAIL"), method = "init()V")
+    private void init(CallbackInfo info) {
+        chatField.setMaxLength(Integer.MAX_VALUE);
+    }
 }
