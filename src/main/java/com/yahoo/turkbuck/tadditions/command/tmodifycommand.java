@@ -1,27 +1,22 @@
 package com.yahoo.turkbuck.tadditions.command;
 
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.TranslatableText;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
-import static com.yahoo.turkbuck.tadditions.command.helpers.CommandManager.addClientSideCommand;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
 
 public class tmodifycommand {
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void register() {
         MinecraftClient MC = MinecraftClient.getInstance();
-        addClientSideCommand("tmodify");
-        dispatcher.register(literal("tmodify")
-                .then(literal("add")
-                        .then(argument("nbt", greedyString())
+        ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("tmodify")
+                .then(ClientCommandManager.literal("add")
+                        .then(ClientCommandManager.argument("nbt", greedyString())
                                 .executes(context -> {
                                     if (MC.player.getAbilities().creativeMode) {
                                         String nbt = context.getArgument("nbt", String.class);
@@ -32,8 +27,8 @@ public class tmodifycommand {
                                     }
                                     return 0;
                                 })))
-                .then(literal("set")
-                        .then(argument("nbt", greedyString())
+                .then(ClientCommandManager.literal("set")
+                        .then(ClientCommandManager.argument("nbt", greedyString())
                                 .executes(context -> {
                                     if (MC.player.getAbilities().creativeMode) {
                                         String nbt = context.getArgument("nbt", String.class);
@@ -44,8 +39,8 @@ public class tmodifycommand {
                                     }
                                     return 0;
                                 })))
-                .then(literal("remove")
-                        .then(argument("nbt", greedyString())
+                .then(ClientCommandManager.literal("remove")
+                        .then(ClientCommandManager.argument("nbt", greedyString())
                                 .executes(context -> {
                                     if (MC.player.getAbilities().creativeMode) {
                                         String nbt = context.getArgument("nbt", String.class);
