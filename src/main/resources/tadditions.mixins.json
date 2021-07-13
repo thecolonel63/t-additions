@@ -7,7 +7,6 @@
   ],
   "client": [
     "ChatScreenMixin",
-    "ClientPlayerEntityMixin",
     "ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
