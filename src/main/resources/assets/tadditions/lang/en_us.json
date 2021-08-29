@@ -26,5 +26,9 @@
   "tadditions.thelp.tuuid": "/tuuid (get|convert)",
   "tadditions.thelp.tuuid.description": "[T-additions] Grabs the UUID of any player online in a server, or converts between the two primary UUID formats.",
   "tadditions.thelp.tuuid.extended.1": "/tuuid get <name>",
-  "tadditions.thelp.tuuid.extended.2": "/tuuid convert <UUID>"
+  "tadditions.thelp.tuuid.extended.2": "/tuuid convert <UUID>",
+  "key.category.tadditions": "T-Additions Configuration Menu",
+  "tadditions.config.main": "T-Additions Main Configuration Menu",
+  "tadditions.replacegive": "Replace /give with /tgive while in Creative mode",
+  "tadditions.config.replacegive": "Intercept /give @p and /give @s and replace with /tgive internally on Creative Mode. \nThis allows for practically infinite /give commands."
 }

@@ -49,7 +49,7 @@ public class tgivecommand {
                                         return 0;
                                     }
                                     if (MC.player.getAbilities().creativeMode) {
-                                        ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
+                                        ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(count, false);
                                         for (int i = 0; i < 9; i++) {
                                             if (MC.player.getInventory().getStack(i).isEmpty()) {
                                                 MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(36 + i, stack));

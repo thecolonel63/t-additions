@@ -1,8 +1,9 @@
 package com.yahoo.turkbuck.tadditions.mixin;
 
-import com.mojang.brigadier.StringReader;
-import com.yahoo.turkbuck.tadditions.command.helpers.CommandManager;
+import com.yahoo.turkbuck.tadditions.config.ModConfig;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,16 +13,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClientPlayerEntityMixin {
     @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
     private void onSendChatMessage(String message, CallbackInfo ci) {
-        if(message.startsWith("/")) {
-            StringReader reader = new StringReader(message);
-            reader.skip();
-            int cursor = reader.getCursor();
-            String commandName = reader.canRead() ? reader.readUnquotedString() : "";
-            reader.setCursor(cursor);
-            if(CommandManager.isClientSideCommand(commandName)) {
-                CommandManager.executeCommand(reader, message);
-                ci.cancel();
+        if (ModConfig.INSTANCE.replaceGive && MinecraftClient.getInstance().player.isCreative() && (message.startsWith("/give @s ") || message.startsWith("/give @p ") || message.startsWith("/give " + MinecraftClient.getInstance().player.getEntityName()))) {
+            assert MinecraftClient.getInstance().player != null;
+            int cutLength;
+            if (message.startsWith("/give @s ") || message.startsWith("/give @p ")) {
+                cutLength = 9;
+            } else {
+                cutLength = MinecraftClient.getInstance().player.getEntityName().length() + 7;
             }
+            ci.cancel();
+            String messageModded = "/tgive " + message.substring(cutLength);
+            System.out.println(messageModded);
+            System.out.println(MinecraftClient.getInstance().player.getEntityName().length());
+            MinecraftClient.getInstance().player.sendChatMessage(messageModded);
         }
     }
 }

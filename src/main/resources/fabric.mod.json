@@ -19,6 +19,9 @@
   "entrypoints": {
     "main": [
       "com.yahoo.turkbuck.tadditions.TAdditions"
+    ],
+    "modmenu": [
+      "com.yahoo.turkbuck.tadditions.config.ConfigScreenProvider"
     ]
   },
   "mixins": [
