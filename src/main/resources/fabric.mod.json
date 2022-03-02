@@ -18,10 +18,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.yahoo.turkbuck.tadditions.TAdditions"
+      "com.thecolonel63.tadditions.TAdditions"
     ],
     "modmenu": [
-      "com.yahoo.turkbuck.tadditions.config.ConfigScreenProvider"
+      "com.thecolonel63.tadditions.config.ConfigScreenProvider"
     ]
   },
   "mixins": [
@@ -29,12 +29,11 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.13.0",
     "fabric": "*",
-    "minecraft": "1.17.x",
+    "minecraft": "1.18.x",
     "java": ">=16"
   },
   "suggests": {
-    "another-mod": "*"
   }
 }

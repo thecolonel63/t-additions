@@ -1,4 +1,4 @@
-package com.yahoo.turkbuck.tadditions.config;
+package com.thecolonel63.tadditions.config;
 
 public class ConfigInstance {
     public boolean replaceGive;

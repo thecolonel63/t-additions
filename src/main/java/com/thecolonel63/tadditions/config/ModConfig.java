@@ -1,4 +1,4 @@
-package com.yahoo.turkbuck.tadditions.config;
+package com.thecolonel63.tadditions.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

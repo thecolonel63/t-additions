@@ -1,4 +1,4 @@
-package com.yahoo.turkbuck.tadditions.config;
+package com.thecolonel63.tadditions.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

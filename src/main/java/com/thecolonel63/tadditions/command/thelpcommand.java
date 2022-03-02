@@ -1,4 +1,4 @@
-package com.yahoo.turkbuck.tadditions.command;
+package com.thecolonel63.tadditions.command;
 
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.minecraft.client.MinecraftClient;

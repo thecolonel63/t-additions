@@ -1,19 +1,9 @@
-package com.yahoo.turkbuck.tadditions.command.helpers;
+package com.thecolonel63.tadditions.command.helpers;
 
 public class StringHelper {
     public static boolean isHexadecimalUUID(String s) {
-        if (s.length() == 36) {
-            if (s.substring(8, 9).contains("-") && s.substring(13, 14).contains("-") && s.substring(18, 19).contains("-") && s.substring(23, 24).contains("-")) {
-                String part1 = s.substring(0, 7);
-                String part2 = s.substring(9, 12);
-                String part3 = s.substring(14, 17);
-                String part4 = s.substring(19, 22);
-                String part5 = s.substring(24, 36);
-                String dashesRemoved = part1 + part2 + part3 + part4 + part5;
-                return dashesRemoved.matches("-?[0-9a-f]+");
-            }
-        }
-        return false;
+        if(!(s.length() == 36 || s.length() == 32)) return false;
+        return s.matches("-?[0-9a-f]+");
     }
 
     public static boolean isIntArrayUUID(String s) {

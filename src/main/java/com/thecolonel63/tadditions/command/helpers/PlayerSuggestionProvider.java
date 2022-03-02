@@ -1,4 +1,4 @@
-package com.yahoo.turkbuck.tadditions.command.helpers;
+package com.thecolonel63.tadditions.command.helpers;
 
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
