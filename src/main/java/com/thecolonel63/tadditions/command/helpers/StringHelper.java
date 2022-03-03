@@ -3,7 +3,7 @@ package com.thecolonel63.tadditions.command.helpers;
 public class StringHelper {
     public static boolean isHexadecimalUUID(String s) {
         if(!(s.length() == 36 || s.length() == 32)) return false;
-        return s.matches("-?[0-9a-f]+");
+        return s.replace("-","").matches("-?[0-9a-f]+");
     }
 
     public static boolean isIntArrayUUID(String s) {

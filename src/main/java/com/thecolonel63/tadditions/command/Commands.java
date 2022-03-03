@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class Commands implements SuggestionProvider<FabricClientCommandSource> {
     public static void registerCommands() {
         tgivecommand.register();
+        tgetplayercommand.register();
         thelpcommand.register();
         tmodifycommand.register();
         treplaceitemcommand.register();
@@ -19,6 +20,7 @@ public class Commands implements SuggestionProvider<FabricClientCommandSource> {
 
     public static String[] listCommands() {
         return new String[]{
+                "tgetplayer",
                 "tgive",
                 "thelp",
                 "tmodify",

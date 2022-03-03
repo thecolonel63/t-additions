@@ -30,5 +30,10 @@
   "key.category.tadditions": "T-Additions Configuration Menu",
   "tadditions.config.main": "T-Additions Main Configuration Menu",
   "tadditions.replacegive": "Replace /give with /tgive while in Creative mode",
-  "tadditions.config.replacegive": "Intercept /give @p and /give @s and replace with /tgive internally on Creative Mode. \nThis allows for practically infinite /give commands."
+  "tadditions.config.replacegive": "Intercept /give @p and /give @s and replace with /tgive internally on Creative Mode. \nThis allows for practically infinite /give commands.",
+  "tadditions.tgetplayer.no_player_linked": "[T-additions] UUID %s is not linked to any player.",
+  "tadditions.tgetplayer.player_linked": "[T-additions] UUID %s is linked to player %s.",
+  "tadditions.failed_to_connect_to_internet": "[T-additions] Failed to connect to Mojang's servers. Please ensure you are properly connected to the internet.",
+  "tadditions.thelp.tgetplayer": "/tgetplayer <UUID>",
+  "tadditions.thelp.tgetplayer.description": "[T-additions] Gets the player name from a specified UUID. Note: Requires an internet connection."
 }
