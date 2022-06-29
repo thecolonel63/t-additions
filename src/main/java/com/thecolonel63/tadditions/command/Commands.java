@@ -1,21 +1,23 @@
 package com.thecolonel63.tadditions.command;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import net.minecraft.command.CommandRegistryAccess;
 
 import java.util.concurrent.CompletableFuture;
 
 public class Commands implements SuggestionProvider<FabricClientCommandSource> {
-    public static void registerCommands() {
-        tgivecommand.register();
-        tgetplayercommand.register();
-        thelpcommand.register();
-        tmodifycommand.register();
-        treplaceitemcommand.register();
-        tuuidcommand.register();
+    public static void registerCommands(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandRegistryAccess registryAccess) {
+        tgivecommand.register(dispatcher, registryAccess);
+        tgetplayercommand.register(dispatcher);
+        thelpcommand.register(dispatcher);
+        tmodifycommand.register(dispatcher);
+        treplaceitemcommand.register(dispatcher, registryAccess);
+        tuuidcommand.register(dispatcher);
     }
 
     public static String[] listCommands() {

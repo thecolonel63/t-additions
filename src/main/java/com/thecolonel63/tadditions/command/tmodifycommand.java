@@ -1,20 +1,22 @@
 package com.thecolonel63.tadditions.command;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
 
 public class tmodifycommand {
 
-    public static void register() {
+    public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         MinecraftClient MC = MinecraftClient.getInstance();
-        ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("tmodify")
+        dispatcher.register(ClientCommandManager.literal("tmodify")
                 .then(ClientCommandManager.literal("add")
                         .then(ClientCommandManager.argument("nbt", greedyString())
                                 .executes(context -> {
@@ -23,7 +25,7 @@ public class tmodifycommand {
                                         ItemStack stack = MC.player.getMainHandStack();
                                         addNbt(nbt, stack);
                                     } else {
-                                        MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                                        MC.player.sendMessage(Text.translatable("tadditions.error.creative"), false);
                                     }
                                     return 0;
                                 })))
@@ -35,7 +37,7 @@ public class tmodifycommand {
                                         ItemStack stack = MC.player.getMainHandStack();
                                         setNbt(nbt, stack);
                                     } else {
-                                        MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                                        MC.player.sendMessage(Text.translatable("tadditions.error.creative"), false);
                                     }
                                     return 0;
                                 })))
@@ -47,7 +49,7 @@ public class tmodifycommand {
                                         ItemStack stack = MC.player.getMainHandStack();
                                         removeNbt(nbt, stack);
                                     } else {
-                                        MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+                                        MC.player.sendMessage(Text.translatable("tadditions.error.creative"), false);
                                     }
                                     return 0;
                                 })))
@@ -62,9 +64,9 @@ public class tmodifycommand {
         try {
             NbtCompound tag = StringNbtReader.parse(nbt);
             stack.getNbt().copyFrom(tag);
-            MC.player.sendMessage(new TranslatableText("tadditions.modify.success"), false);
+            MC.player.sendMessage(Text.translatable("tadditions.modify.success"), false);
         } catch (CommandSyntaxException e) {
-            MC.player.sendMessage(new TranslatableText("tadditions.modify.nbt.invalid"), false);
+            MC.player.sendMessage(Text.translatable("tadditions.modify.nbt.invalid"), false);
         }
     }
 
@@ -74,9 +76,9 @@ public class tmodifycommand {
         try {
             NbtCompound tag = StringNbtReader.parse(nbt);
             stack.setNbt(tag);
-            MC.player.sendMessage(new TranslatableText("tadditions.modify.success"), false);
+            MC.player.sendMessage(Text.translatable("tadditions.modify.success"), false);
         } catch (CommandSyntaxException e) {
-            MC.player.sendMessage(new TranslatableText("tadditions.modify.nbt.invalid"), false);
+            MC.player.sendMessage(Text.translatable("tadditions.modify.nbt.invalid"), false);
         }
 
     }
@@ -88,10 +90,10 @@ public class tmodifycommand {
         NbtPath path = parseNbtPath(stack.getNbt(), nbt);
 
         if (path == null) {
-            MC.player.sendMessage(new TranslatableText("tadditions.modify.nbt.path.invalid"), false);
+            MC.player.sendMessage(Text.translatable("tadditions.modify.nbt.path.invalid"), false);
         } else {
             path.base.remove(path.key);
-            MC.player.sendMessage(new TranslatableText("tadditions.modify.success"), false);
+            MC.player.sendMessage(Text.translatable("tadditions.modify.success"), false);
         }
 
     }

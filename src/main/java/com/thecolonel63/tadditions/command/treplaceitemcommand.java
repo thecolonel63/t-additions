@@ -1,23 +1,26 @@
 package com.thecolonel63.tadditions.command;
 
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import com.mojang.brigadier.CommandDispatcher;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
 import static net.minecraft.command.argument.ItemStackArgumentType.itemStack;
 
 public class treplaceitemcommand {
 
-    public static void register() {
+    public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandRegistryAccess registryAccess) {
         MinecraftClient MC = MinecraftClient.getInstance();
 
-        ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("treplaceitem")
+        dispatcher.register(ClientCommandManager.literal("treplaceitem")
                 .then(ClientCommandManager.literal("armor.head")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(5, stack);
@@ -35,7 +38,7 @@ public class treplaceitemcommand {
                 )
 
                 .then(ClientCommandManager.literal("armor.chest")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(6, stack);
@@ -53,7 +56,7 @@ public class treplaceitemcommand {
                 )
 
                 .then(ClientCommandManager.literal("armor.legs")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(7, stack);
@@ -71,7 +74,7 @@ public class treplaceitemcommand {
                 )
 
                 .then(ClientCommandManager.literal("armor.feet")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(8, stack);
@@ -88,7 +91,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.0")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(9, stack);
@@ -105,7 +108,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.1")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(10, stack);
@@ -122,7 +125,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.2")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(11, stack);
@@ -139,7 +142,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.3")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(12, stack);
@@ -156,7 +159,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.4")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(13, stack);
@@ -173,7 +176,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.5")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(14, stack);
@@ -190,7 +193,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.6")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(15, stack);
@@ -207,7 +210,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.7")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(16, stack);
@@ -224,7 +227,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.8")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(17, stack);
@@ -241,7 +244,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.9")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(18, stack);
@@ -258,7 +261,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.10")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(19, stack);
@@ -275,7 +278,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.11")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(20, stack);
@@ -292,7 +295,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.12")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(21, stack);
@@ -309,7 +312,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.13")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(22, stack);
@@ -326,7 +329,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.14")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(23, stack);
@@ -343,7 +346,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.15")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(24, stack);
@@ -360,7 +363,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.16")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(25, stack);
@@ -377,7 +380,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.17")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(26, stack);
@@ -394,7 +397,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.18")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(27, stack);
@@ -411,7 +414,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.19")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(28, stack);
@@ -428,7 +431,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.20")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(29, stack);
@@ -445,7 +448,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.21")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(30, stack);
@@ -462,7 +465,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.22")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(31, stack);
@@ -479,7 +482,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.23")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(32, stack);
@@ -496,7 +499,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.24")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(33, stack);
@@ -513,7 +516,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.25")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(34, stack);
@@ -530,7 +533,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("inventory.26")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(35, stack);
@@ -547,7 +550,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.0")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(36, stack);
@@ -564,7 +567,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.1")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(37, stack);
@@ -581,7 +584,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.2")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(38, stack);
@@ -598,7 +601,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.3")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(39, stack);
@@ -615,7 +618,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.4")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(40, stack);
@@ -632,7 +635,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.5")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(41, stack);
@@ -649,7 +652,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.6")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(42, stack);
@@ -666,7 +669,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.7")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(43, stack);
@@ -683,7 +686,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("hotbar.8")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(44, stack);
@@ -700,7 +703,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("weapon")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(36 + MC.player.getInventory().selectedSlot, stack);
@@ -717,7 +720,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("weapon.mainhand")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(36 + MC.player.getInventory().selectedSlot, stack);
@@ -734,7 +737,7 @@ public class treplaceitemcommand {
                         )
                 )
                 .then(ClientCommandManager.literal("weapon.offhand")
-                        .then(ClientCommandManager.argument("item", itemStack())
+                        .then(ClientCommandManager.argument("item", itemStack(registryAccess))
                                 .executes(context -> {
                                     ItemStack stack = context.getArgument("item", ItemStackArgument.class).createStack(1, false);
                                     replaceItem(45, stack);
@@ -758,15 +761,15 @@ public class treplaceitemcommand {
         MinecraftClient MC = MinecraftClient.getInstance();
         if (MC.player.getAbilities().creativeMode) {
             if (stack.getCount() > 64) {
-                MC.player.sendMessage(new TranslatableText("tadditions.count_above_max"), false);
+                MC.player.sendMessage(Text.translatable("tadditions.count_above_max"), false);
             } else if (stack.getCount() < 1) {
-                MC.player.sendMessage(new TranslatableText("tadditions.count_below_min"), false);
+                MC.player.sendMessage(Text.translatable("tadditions.count_below_min"), false);
             } else {
                 MC.player.networkHandler.sendPacket(new CreativeInventoryActionC2SPacket(slot, stack));
-                MC.player.sendMessage(new TranslatableText("tadditions.replaceitem.success"), false);
+                MC.player.sendMessage(Text.translatable("tadditions.replaceitem.success"), false);
             }
         } else {
-            MC.player.sendMessage(new TranslatableText("tadditions.error.creative"), false);
+            MC.player.sendMessage(Text.translatable("tadditions.error.creative"), false);
         }
     }
 }

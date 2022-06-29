@@ -1,12 +1,13 @@
 package com.thecolonel63.tadditions.command;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.thecolonel63.tadditions.command.helpers.PlayerSuggestionProvider;
 import com.thecolonel63.tadditions.command.helpers.UUIDExampleProvider;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 import java.util.Iterator;
 
@@ -17,8 +18,8 @@ import static com.thecolonel63.tadditions.command.helpers.StringHelper.isIntArra
 
 public class tuuidcommand {
 
-    public static void register() {
-        ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("tuuid")
+    public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
+        dispatcher.register(ClientCommandManager.literal("tuuid")
                 .then(ClientCommandManager.literal("get")
                         .then(ClientCommandManager.argument("name", string())
                                 .suggests(new PlayerSuggestionProvider())
@@ -54,7 +55,7 @@ public class tuuidcommand {
                                                 }
                                             }
                                             if (matchedPlayer == 0) {
-                                                MC.player.sendMessage(new TranslatableText("tadditions.tuuid.no_player_found"), false);
+                                                MC.player.sendMessage(Text.translatable("tadditions.tuuid.no_player_found"), false);
                                             }
                                             return 0;
                                         }
@@ -80,7 +81,7 @@ public class tuuidcommand {
                                                         IntArrayUUID = IntArrayUUID + ParsedInt + "]";
                                                     }
                                                 }
-                                                MC.player.sendMessage(new TranslatableText("tadditions.tuuid.convert.int_equivalent"), false);
+                                                MC.player.sendMessage(Text.translatable("tadditions.tuuid.convert.int_equivalent"), false);
                                                 MC.player.sendMessage(Text.Serializer.fromJson("{\"clickEvent\":{\"action\":\"copy_to_clipboard\",\"value\":\"" + IntArrayUUID + "\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":{\"translate\":\"tadditions.tuuid.hover_event\"}},\"text\":\"\n" + IntArrayUUID + "\"}"), false);
                                             } else if (isIntArrayUUID(UUID)) {
                                                 System.out.println();
@@ -92,10 +93,10 @@ public class tuuidcommand {
                                                     HexadecimalUUIDTrimmed = HexadecimalUUIDTrimmed + addToHexUUID;
                                                 }
                                                 String HexadecimalUUID = HexadecimalUUIDTrimmed.substring(0, 8) + "-" + HexadecimalUUIDTrimmed.substring(8, 12) + "-" + HexadecimalUUIDTrimmed.substring(12, 16) + "-" + HexadecimalUUIDTrimmed.substring(16, 20) + "-" + HexadecimalUUIDTrimmed.substring(20, 32);
-                                                MC.player.sendMessage(new TranslatableText("tadditions.tuuid.convert.hex_equivalent"), false);
+                                                MC.player.sendMessage(Text.translatable("tadditions.tuuid.convert.hex_equivalent"), false);
                                                 MC.player.sendMessage(Text.Serializer.fromJson("{\"clickEvent\":{\"action\":\"copy_to_clipboard\",\"value\":\"" + HexadecimalUUID + "\"},\"hoverEvent\":{\"action\":\"show_text\",\"contents\":{\"translate\":\"tadditions.tuuid.hover_event\"}},\"text\":\"\n" + HexadecimalUUID + "\"}"), false);
                                             } else {
-                                                MC.player.sendMessage(new TranslatableText("tadditions.tuuid.convert.invalid"), false);
+                                                MC.player.sendMessage(Text.translatable("tadditions.tuuid.convert.invalid"), false);
                                             }
                                             return 0;
                                         }
